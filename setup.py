@@ -44,9 +44,9 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.WhichProtectiveOrderIsRightForMe',
-      version='0.0.1',
+      version='0.0.2',
       description=('A docassemble extension.'),
-      long_description='# docassemble.WhichProtectiveOrderIsRightForMe\n\nA docassemble extension.\n\n## Author\n\nVivian McNaughton, vmcnaughton@illinoislegalaid.org\n\n',
+      long_description='# docassemble.WhichProtectiveOrderIsRightForMe\r\n\r\nA docassemble extension.\r\n\r\n## Author\r\n\r\nVivian McNaughton, vmcnaughton@illinoislegalaid.org\r\n\r\n',
       long_description_content_type='text/markdown',
       author='Vivian McNaughton',
       author_email='vmcnaughton@illinoislegalaid.org',
