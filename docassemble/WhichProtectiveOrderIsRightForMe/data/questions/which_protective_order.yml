@@ -1,0 +1,474 @@
+metadata:
+  title: Which protective order is right for me?
+  short title: Which protective order
+  comment:  This program helps you figure out which type of protective order is right for your situation.
+---
+include:
+  - docassemble.AssemblyLine:assembly_line.yml
+  - docassemble.ALToolbox:phone-number-validation.yml
+  - docassemble.ILAO:ilao-interview-framework.yml
+  - docassemble.ILAO:shared-basic-questions.yml
+---
+features:
+  progress bar: False
+  hide navbar: True
+---
+default screen parts:
+  right: |
+  under: |
+---
+# interview order block
+mandatory: True
+code: |
+  ilao_easy_form_title = "Which protective order is right for me?"
+  ilao_easy_form_url = "https://www.illinoislegalaid.org/legal-information/which-protective-order-right-me"
+  #sees_nav_bar
+  #types_of_orders
+  if in_illinois == False:
+    not_in_illinois
+  if protect_who == 'the person you want to protect':
+    if minor_child == False:
+      if an_adult == False:
+        no_person
+    if minor_child == True:
+      an_adult
+  if protect_who == 'you or the person you want to protect':
+    if minor_child == False:
+      if an_adult == False:
+        both_to_you
+        protect_who = 'you'
+    if minor_child == True:
+      an_adult
+    if abuser_illinois == False:
+      if acts_illinois == False:
+        no_jurisdiction
+      if acts_illinois == True:
+        has_jurisdiction
+    if abuser_illinois == True:
+      has_jurisdiction
+  if live_with == True:
+    qualified_relationship = True
+  if live_with == False:
+    if lived_with == True:
+      qualified_relationship = True
+    if lived_with == False:
+      if romantic_partner == True:
+        qualified_relationship = True
+      if romantic_partner == False:
+        if a_relative == True:
+          qualified_relationship = True
+        if a_relative == False:
+          if related_child == True:
+            qualified_relationship = True
+          if related_child == False:
+            if live_with_child == True:
+              qualified_relationship = True
+            if live_with_child == False:
+              if caregiver == True:
+                qualified_relationship = True
+              if caregiver == False:
+                if disability == True:
+                  if care_for == True:
+                    qualified_relationship = True
+                  if care_for == False:
+                    if at_risk == False:
+                      qualified_relationship = False
+                    if at_risk == True:
+                      if took_responsibility == False:
+                        qualified_relationship = False
+                      if took_responsibility == True:
+                        qualified_relationship = True
+                if disability == False:
+                  if at_risk == False:
+                    qualified_relationship = False
+                  if at_risk == True:
+                    if took_responsibility == False:
+                      qualified_relationship = False
+                    if took_responsibility == True:
+                      qualified_relationship = True
+  if qualified_relationship == True:
+    if sexual_abuse == True:
+      oop_or_cnco
+    if sexual_abuse == False:
+      only_oop
+  if qualified_relationship == False:
+    if sexual_abuse == True:
+      only_cnco
+    if sexual_abuse == False:
+      if any_stalking == False:
+        no_stalking
+      if any_stalking == True:
+        if stalking_times == 'Once':
+          stalked_once
+        if stalking_times == 'More than once':
+          if had_fear == False:
+            weak_stalking
+          if had_fear == True:
+            snco_only
+     
+---
+id: welcome
+question: |
+  Which protective order is right for me?
+subquestion: |
+  This interview is for people who are survivors of abuse, stalking, harassment, or sexual violence, and want to make their abuser stay away.
+
+  It will help you learn which legal orders can protect survivors of different sorts of abuse, violence, or harassment.
+
+field: sees_nav_bar
+---
+id: in illinois
+question: |
+  Do you want to file for a protective order in Illinois?
+fields:
+  - no label: in_illinois
+    datatype: yesnoradio
+---
+id: not in illinois
+event: not_in_illinois
+question: |
+  Sorry
+subquestion: |
+  This program is only for people who want protective orders in Illinois.
+  
+  You can use <a href="https://www.lsc.gov/what-legal-aid/find-legal-aid">**Find Legal Aid**</a> to go to a website that can help you find a lawyer in another state.
+  
+  If you made a mistake, you can use the Back button or Restart the interview.
+buttons:
+  - Restart: restart
+---
+id: protect who
+question: |
+  Do you want protection for yourself or another person?
+field: protect_who
+choices:
+  - Myself: you
+  - Another person: the person you want to protect
+  - Both: you or the person you want to protect
+---
+# your or their
+code: |
+  if protect_who == 'you':
+    your_or_their = 'your'
+  if protect_who == 'the person you want to protect':
+    your_or_their = 'their'
+  if protect_who == 'you or the person you want to protect':
+    your_or_their = 'your or their'
+---
+id: is or are
+code: |
+  if protect_who == 'you':
+    is_or_are = 'are'
+  if protect_who == 'the person you want to protect':
+    is_or_are = 'is'
+  if protect_who == 'you or the person you want to protect':
+    is_or_are = 'is'
+---
+id: child
+question: |
+  Do you want protection for a minor child?
+fields:
+  - no label: minor_child
+    datatype: yesnoradio
+---
+id: adult
+question: |
+  Do you want protection for an adult who cannot come to court on their own?
+fields:
+  - no label: an_adult
+    datatype: yesnoradio
+---
+id: no person
+event: no_person
+question: |
+  You have not included anyone you can protect with a court order.
+subquestion: |
+  If you made a mistake, you can use the Back button or Restart the interview.
+buttons:
+  - Restart: restart
+---
+id: both to you
+continue button field: both_to_you
+question: |
+  You have not included another person you can protect with a court order.
+subquestion: |
+  You can still qualify for a court order for yourself. Press Continue if you want to know which protective order is right for you.
+  
+  If you made a mistake, you can use the Back button to return to earlier questions.
+---
+id: types of orders
+continue button field: types_of_orders
+question: |
+  In Illinois, there are three main court orders that can protect people from abuse or harassment.
+subquestion: |
+  These are:
+
+  * Order of Protection, used in cases of domestic violence,
+  * Civil No Contact Order, used in cases of sexual abuse or sexual assault, and
+  * Stalking No Contact Order, used in cases of stalking.
+
+  This program will help you determine which order covers your situation.
+---
+id: abuser illinois
+question: |
+  Does the abuser live in Illinois?
+fields:
+  - no label: abuser_illinois
+    datatype: yesnoradio
+---
+id: acts illinois
+question: |
+  Did any acts of abuse or harassment take place in Illinois?
+fields:
+  - no label: acts_illinois
+    datatype: yesnoradio
+---
+# do or does
+code: |
+  if protect_who == 'you':
+    do_or_does = 'do'
+  else:
+    do_or_does = 'does'
+---
+id: person illinois
+question: |
+  ${ capitalize(do_or_does) } ${ protect_who } live in Illinois?
+fields:
+  - no label: person_illinois
+    datatype: yesnoradio
+---
+id: no jurisdiction
+event: no_jurisdiction
+question: |
+  Sorry
+subquestion: |
+  Illinois does not have jurisdiction over your protective order.
+
+  Illinois courts may be able to protect people and places in the state even though you do not live here. However, you should talk with a lawyer or victim advocate in your home state also.
+
+  If you made a mistake, use the Back button to go back to earlier questions
+
+  You may want to go to a website that can help you find a lawyer in another state.
+buttons:
+  - Restart: restart
+---
+id: has jurisdiction
+continue button field: has_jurisdiction
+question: |
+  Based on your answers, Illinois will have jurisdiction over your protective order.
+---
+id: live with abuser
+question: |
+  Does the abuser currently live with ${ protect_who }?
+fields:
+  - no label: live_with
+    datatype: yesnoradio
+---
+id: lived with abuser
+question: |
+  Did the abuser live with ${ protect_who } in the past?
+fields:
+  - no label: lived_with
+    datatype: yesnoradio
+---
+id: romantic partner
+question: |
+  Is the abuser a current or former romantic partner?
+fields:
+  - no label: romantic_partner
+    datatype: yesnoradio
+---
+id: relative
+question: |
+  Is the abuser a relative?
+fields:
+  - no label: a_relative
+    datatype: yesnoradio
+---
+id: related to child
+question: |
+  Is the abuser related to a child ${ protect_who } ${ is_or_are} legally responsible for?
+fields:
+  - no label: related_child
+    datatype: yesnoradio
+---
+id: live with child
+question: |
+  Does the abuser live with a child ${ protect_who } ${ is_or_are} legally responsible for?
+fields:
+  - no label: live_with_child
+    datatype: yesnoradio
+---
+id: caregiver
+question: |
+  Is the abuser a caregiver or personal assistant for ${ protect_who }?
+subquestion: |
+  ${ collapse_template(caregiver_help) }   
+fields:
+  - no label: caregiver
+    datatype: yesnoradio
+---
+id: disability
+question: |
+  Is the abuser elderly or a person with a disability?
+fields:
+  - no label: disability
+    datatype: yesnoradio
+---
+id: care for
+question: |
+  ${capitalize(is_or_are)} ${ protect_who } a current or former caregiver for the abuser?
+subquestion: |
+  ${ collapse_template(caregiver_help) }   
+fields:
+  - no label: care_for
+    datatype: yesnoradio
+---
+template: caregiver_help
+
+subject: |
+  **Who counts as a caregiver?**
+content: | 
+  A caregiver is someone who has a duty to care for a disabled or elderly person. A caregiver can be someone employed to take care of the other person, but a caregiver could also be a relative or friend who agreed to regularly help a disabled or elderly person.
+---
+id: at risk
+question: |
+  Are ${ protect_who } an elderly or at-risk adult with disabilities?
+fields:
+  - no label: at_risk
+    datatype: yesnoradio
+---
+id: took responsibility
+question: |
+  Did the abuser take responsibility for ${ protect_who }?
+fields:
+  - no label: took_responsibility
+    datatype: yesnoradio
+---
+id: was or were
+code: |
+  if protect_who == 'the person you want to protect':
+    was_or_were = 'Was'
+  else:
+    was_or_were = 'Were'
+---
+id: sexual abuse
+question: |
+  ${ was_or_were } ${ protect_who } ever the victim of rape, sexual assault, or sexual abuse by the abuser?
+fields:
+  - no label: sexual_abuse
+    datatype: yesnoradio
+---
+id: oop or cnco
+event: oop_or_cnco
+question: |
+  ${capitalize(protect_who)} may choose between an Order of Protection and a Civil No Contact Order.
+subquestion: |
+  An **Order of Protection** can give custody of a child, support payments from the abuser, and can order that only protected persons and not their abuser can live in a shared residence. It can also order that the abuser turn over all guns and their FOID card.
+
+  <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-order-protection">**Learn how to file for an Order of Protection**</a>
+
+  A **Civil No Contact Order** does not decide custody, support, or living arrangements. However, you can use this order to make the abuser transfer to a different school if the abuser is a classmate in grade school, middle school, or high school.
+  
+  <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-civil-no-contact-order">**Learn how to file for a Civil No Contact Order**</a>
+buttons:
+  - Restart: restart
+---
+id: only oop
+event: only_oop
+question: |
+  ${capitalize(protect_who)} may qualify for an Order of Protection
+subquestion: |
+  An **Order of Protection** can give custody of a child, support payments from the abuser, and can order that only protected persons and not their abuser can live in a shared residence. It can also order that the abuser turn over all guns and their FOID card.
+
+  <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-order-protection">**Learn how to file for an Order of Protection**</a>
+buttons:
+  - Restart: restart
+---
+id: only cnco
+event: only_cnco
+question: |
+  ${capitalize(protect_who)} may qualify for a Civil No Contact Order
+subquestion: |
+  A **Civil No Contact Order** does not decide custody, support, or living arrangements. However, you can use this order to make the abuser transfer to a different school if the abuser is a classmate in grade school, middle school, or high school. 
+
+  <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-civil-no-contact-order">**Learn how to file for a Civil No Contact Order**</a>
+buttons:
+  - Restart: restart
+---
+id: any stalking
+question: |
+  Has the abuser stalked ${ protect_who }?
+fields:
+  - no label: any_stalking
+    datatype: yesnoradio
+---
+id: no stalking
+event: no_stalking
+question: |
+  Sorry
+subquestion: |
+  Based on your answers, ${ protect_who } ${do_or_does} not qualify for any of the special protective orders available in Illinois right now.
+  
+  If you made a mistake, you can use the Back button or Restart the interview.
+buttons:
+  - Restart: restart
+---
+id: stalking times
+question: |
+  How many times has the abuser done an act of stalking?
+field: stalking_times
+choices:
+  - Once
+  - More than once
+---
+id: stalked once
+event: stalked_once
+question: |
+  Sorry
+subquestion: |
+  Based on the answers you have given, ${ protect_who } ${ do_or_does } not qualify for any of the special protective orders available in Illinois right now.
+
+  You may qualify for a Stalking No Contact Order if the abuser bothers ${ protect_who } again.
+  
+  If you made a mistake, you can use the Back button or Restart the interview.
+buttons:
+  - Restart: restart
+---
+id: fear
+question: |
+  Did the abuser's actions make ${ protect_who } fear for ${ your_or_their} safety or cause emotional distress?
+fields:
+  - no label: had_fear
+    datatype: yesnoradio
+---
+id: weak stalking
+event: weak_stalking
+question: |
+  Sorry
+subquestion: |
+  Based on the answers you have given, ${ protect_who } ${ do_or_does } not qualify for any of the protective orders available in Illinois.
+
+  To count as "stalking" the abuser's conduct must be worse than annoying. The behavior must cause emotional distress or make you fear for your safety. However, if the abuser's behavior continues or gets worse, ${ protect_who } may qualify for a Stalking No Contact Order.
+buttons:
+  - Restart: restart
+---
+id: snco only
+event: snco_only
+question: |
+  ${capitalize(protect_who)} may qualify for a Stalking No Contact Order
+subquestion: |
+  Based on the answers you have given, you may be able to get a **Stalking No Contact Order** to protect ${protect_who}.
+
+  The SNCO may prohibit the stalker from:
+  
+  * Following or monitoring you,
+  * Threatening you,
+  * Talking or writing to you,
+  * Interfering with or damaging your property,
+  * Coming near you in public or on private property, and
+  * Showing up at your work, home, school, or daycare facility.
+
+  <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-stalking-no-contact-order">**Learn how to file for a Stalking No Contact Order**</a>
+buttons:
+  - Restart: restart
