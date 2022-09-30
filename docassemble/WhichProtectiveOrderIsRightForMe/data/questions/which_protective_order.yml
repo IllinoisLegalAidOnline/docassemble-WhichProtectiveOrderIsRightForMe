@@ -67,25 +67,13 @@ code: |
               if caregiver == True:
                 qualified_relationship = True
               if caregiver == False:
-                if disability == True:
-                  if care_for == True:
-                    qualified_relationship = True
-                  if care_for == False:
-                    if at_risk == False:
-                      qualified_relationship = False
-                    if at_risk == True:
-                      if took_responsibility == False:
-                        qualified_relationship = False
-                      if took_responsibility == True:
-                        qualified_relationship = True
-                if disability == False:
-                  if at_risk == False:
+                if at_risk == False:
+                  qualified_relationship = False
+                if at_risk == True:
+                  if took_responsibility == False:
                     qualified_relationship = False
-                  if at_risk == True:
-                    if took_responsibility == False:
-                      qualified_relationship = False
-                    if took_responsibility == True:
-                      qualified_relationship = True
+                  if took_responsibility == True:
+                    qualified_relationship = True
   if qualified_relationship == True:
     if sexual_abuse == True:
       oop_or_cnco
@@ -333,7 +321,7 @@ content: |
 ---
 id: at risk
 question: |
-  Are ${ protect_who } an elderly or at-risk adult with disabilities?
+  ${capitalize(is_or_are)} ${ protect_who } an elderly or at-risk adult with disabilities?
 fields:
   - no label: at_risk
     datatype: yesnoradio
