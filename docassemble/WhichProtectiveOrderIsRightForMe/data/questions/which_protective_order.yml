@@ -30,70 +30,69 @@ code: |
     if minor_child == False:
       if an_adult == False:
         no_person
-    if minor_child == True:
+    else:
       an_adult
   if protect_who == 'you or the person you want to protect':
     if minor_child == False:
       if an_adult == False:
         both_to_you
         protect_who = 'you'
-    if minor_child == True:
+    else:
       an_adult
     if abuser_illinois == False:
       if acts_illinois == False:
         no_jurisdiction
-      if acts_illinois == True:
+      else:
         has_jurisdiction
-    if abuser_illinois == True:
+    else:
       has_jurisdiction
   if live_with == True:
     qualified_relationship = True
-  if live_with == False:
+  else:
     if lived_with == True:
       qualified_relationship = True
-    if lived_with == False:
+    else:
       if romantic_partner == True:
         qualified_relationship = True
-      if romantic_partner == False:
+      else:
         if a_relative == True:
           qualified_relationship = True
-        if a_relative == False:
+        else:
           if related_child == True:
             qualified_relationship = True
-          if related_child == False:
+          else:
             if live_with_child == True:
               qualified_relationship = True
-            if live_with_child == False:
+            else:
               if caregiver == True:
                 qualified_relationship = True
-              if caregiver == False:
+              else:
                 if at_risk == False:
                   qualified_relationship = False
-                if at_risk == True:
+                else:
                   if took_responsibility == False:
                     qualified_relationship = False
-                  if took_responsibility == True:
+                  else:
                     qualified_relationship = True
   if qualified_relationship == True:
     if sexual_abuse == True:
       oop_or_cnco
-    if sexual_abuse == False:
+    else:
       only_oop
-  if qualified_relationship == False:
+  else:
     if sexual_abuse == True:
       only_cnco
-    if sexual_abuse == False:
+    else:
       if any_stalking == False:
         no_stalking
-      if any_stalking == True:
+      else:
         if stalking_times == 'Once':
           stalked_once
-        if stalking_times == 'More than once':
+        else:
           if had_fear == False:
             weak_stalking
-          if had_fear == True:
-            snco_only
-     
+          else:
+            snco_only 
 ---
 id: welcome
 question: |
@@ -119,7 +118,7 @@ question: |
 subquestion: |
   This program is only for people who want protective orders in Illinois.
   
-  You can use <a href="https://www.lsc.gov/what-legal-aid/find-legal-aid">**Find Legal Aid**</a> to go to a website that can help you find a lawyer in another state.
+  If you do not live in Illinois, use [**the Legal Services Corporation website**](https://www.lsc.gov/about-lsc/what-legal-aid/get-legal-help) to find a legal aid organization near you.
   
   If you made a mistake, you can use the Back button or Restart the interview.
 buttons:
