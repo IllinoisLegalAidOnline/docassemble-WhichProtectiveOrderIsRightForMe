@@ -48,51 +48,39 @@ code: |
       has_jurisdiction
   if live_with == True:
     qualified_relationship = True
+  elif lived_with == True:
+    qualified_relationship = True
+  elif romantic_partner == True:
+    qualified_relationship = True
+  elif a_relative == True:
+    qualified_relationship = True
+  elif related_child == True:
+    qualified_relationship = True
+  elif live_with_child == True:
+    qualified_relationship = True
+  elif caregiver == True:
+    qualified_relationship = True
+  elif at_risk == False: 
+    qualified_relationship = False
+  elif took_responsibility == False:
+    qualified_relationship = False
   else:
-    if lived_with == True:
-      qualified_relationship = True
-    else:
-      if romantic_partner == True:
-        qualified_relationship = True
-      else:
-        if a_relative == True:
-          qualified_relationship = True
-        else:
-          if related_child == True:
-            qualified_relationship = True
-          else:
-            if live_with_child == True:
-              qualified_relationship = True
-            else:
-              if caregiver == True:
-                qualified_relationship = True
-              else:
-                if at_risk == False:
-                  qualified_relationship = False
-                else:
-                  if took_responsibility == False:
-                    qualified_relationship = False
-                  else:
-                    qualified_relationship = True
+    qualified_relationship = True
   if qualified_relationship == True:
     if sexual_abuse == True:
       oop_or_cnco
     else:
       only_oop
+  elif sexual_abuse == True:
+    only_cnco
+  elif any_stalking == False:
+    no_stalking
+  elif stalking_times == 'Once':
+    stalked_once
+  elif had_fear == False:
+    weak_stalking
   else:
-    if sexual_abuse == True:
-      only_cnco
-    else:
-      if any_stalking == False:
-        no_stalking
-      else:
-        if stalking_times == 'Once':
-          stalked_once
-        else:
-          if had_fear == False:
-            weak_stalking
-          else:
-            snco_only 
+    snco_only 
 ---
 id: welcome
 question: |
@@ -118,7 +106,7 @@ question: |
 subquestion: |
   This program is only for people who want protective orders in Illinois.
   
-  If you do not live in Illinois, use [**the Legal Services Corporation website**](https://www.lsc.gov/about-lsc/what-legal-aid/get-legal-help) to find a legal aid organization near you.
+  If you do not live in Illinois, use the [**Legal Services Corporation website**](https://www.lsc.gov/about-lsc/what-legal-aid/get-legal-help) to find a legal aid organization near you.
   
   If you made a mistake, you can use the Back button or Restart the interview.
 buttons:
@@ -312,7 +300,6 @@ fields:
     datatype: yesnoradio
 ---
 template: caregiver_help
-
 subject: |
   **Who counts as a caregiver?**
 content: | 
