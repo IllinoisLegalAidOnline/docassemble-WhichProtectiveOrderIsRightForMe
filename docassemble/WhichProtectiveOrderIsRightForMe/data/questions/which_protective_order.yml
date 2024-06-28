@@ -26,6 +26,7 @@ code: |
   #types_of_orders
   if in_illinois == False:
     not_in_illinois
+  snapshot_start
   if protect_who == 'the person you want to protect':
     if minor_child == False:
       if an_adult == False:
@@ -68,9 +69,13 @@ code: |
     qualified_relationship = True
   if qualified_relationship == True:
     if sexual_abuse == True:
+      snapshot_forms
       oop_or_cnco
+      
     else:
+      snapshot_forms
       only_oop
+      
   elif sexual_abuse == True:
     only_cnco
   elif any_stalking == False:
@@ -80,7 +85,36 @@ code: |
   elif had_fear == False:
     weak_stalking
   else:
+    snapshot_forms
     snco_only 
+    
+---
+code: |
+  stuff_to_snapshot = {
+  	'start_time': str(current_datetime().format_datetime()),
+  	'started_interview': True, 
+  	}
+  
+  stuff_to_snapshot['started_interview'] = showifdef('in_illinois') 
+  
+  stuff_to_snapshot['qualified_relationship'] = showifdef('qualified_relationship') 
+  
+  stuff_to_snapshot['sexual_abuse'] = showifdef('sexual_abuse') 
+  
+  stuff_to_snapshot['had_fear'] = showifdef('had_fear') 
+  
+  store_variables_snapshot(
+  	data=stuff_to_snapshot, persistent=True
+  	)
+  snapshot_interview_state = True
+---
+code: |
+  snapshot_interview_state
+  snapshot_start = True  
+---
+code: |
+  reconsider('snapshot_interview_state')
+  snapshot_forms = True
 ---
 id: welcome
 question: |
@@ -92,7 +126,7 @@ subquestion: |
 
 field: sees_nav_bar
 ---
-id: in illinois
+id: welcome
 question: |
   Do you want to file for a protective order in Illinois?
 fields:
