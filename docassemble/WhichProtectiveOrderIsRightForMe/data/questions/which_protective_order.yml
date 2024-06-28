@@ -69,14 +69,18 @@ code: |
     qualified_relationship = True
   if qualified_relationship == True:
     if sexual_abuse == True:
+      which_order = "op or cnco"
       snapshot_forms
       oop_or_cnco
       
     else:
+      which_order = "only op"
       snapshot_forms
       only_oop
       
   elif sexual_abuse == True:
+    which_order = "only cnco"
+    snapshot_forms
     only_cnco
   elif any_stalking == False:
     no_stalking
@@ -85,6 +89,7 @@ code: |
   elif had_fear == False:
     weak_stalking
   else:
+    which_order = "snco"
     snapshot_forms
     snco_only 
     
@@ -97,11 +102,14 @@ code: |
   
   stuff_to_snapshot['started_interview'] = showifdef('in_illinois') 
   
+  try:
+    stuff_to_snapshot['ip_address'] = device(ip=True)
+  except:
+    pass
+  
   stuff_to_snapshot['qualified_relationship'] = showifdef('qualified_relationship') 
   
-  stuff_to_snapshot['sexual_abuse'] = showifdef('sexual_abuse') 
-  
-  stuff_to_snapshot['had_fear'] = showifdef('had_fear') 
+  stuff_to_snapshot['which_order'] = showifdef('which_order') 
   
   store_variables_snapshot(
   	data=stuff_to_snapshot, persistent=True
