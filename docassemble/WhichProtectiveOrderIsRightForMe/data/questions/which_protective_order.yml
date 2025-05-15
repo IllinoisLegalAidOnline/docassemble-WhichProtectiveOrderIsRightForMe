@@ -69,14 +69,23 @@ code: |
     qualified_relationship = True
   if qualified_relationship == True:
     if sexual_abuse == True:
-      which_order = "op or cnco"
-      snapshot_forms
-      oop_or_cnco
+      if not any_stalking or stalking_times == "Once":
+        which_order = "op or cnco"
+        snapshot_forms
+        oop_or_cnco
+      else:
+        which_order = "any"
+        snapshot_forms
+        any_order
       
-    else:
+    elif not any_stalking or stalking_times == "Once":
       which_order = "only op"
       snapshot_forms
       only_oop
+    else:
+      which_order = "op or snco"
+      snapshot_forms
+      op_or_snco
       
   elif sexual_abuse == True:
     which_order = "only cnco"
@@ -485,6 +494,49 @@ subquestion: |
   * Coming near you in public or on private property, and
   * Showing up at your work, home, school, or daycare facility.
 
+  <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-stalking-no-contact-order">**Learn how to file for a Stalking No Contact Order**</a>
+buttons:
+  - Restart: restart
+---
+id: any order
+event: any_order
+question: |
+  ${capitalize(protect_who)} may qualify for an Order of Protection and other orders
+subquestion: |
+  Based on the answers you have given, an Order of Protection may be the best option to protect ${protect_who}. However, ${protect_who} may also qualify for a Civil No Contact Order or a Stalking No Contact Order.
+
+  An **Order of Protection** can give custody of a child, support payments from the abuser, and can order that only protected persons and not their abuser can live in a shared residence. It can also order that the abuser turn over all guns and their FOID card.
+
+  <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-order-protection">**Learn how to file for an Order of Protection**</a>
+
+  A **Civil No Contact Order** is intended to protect survivors of sexual abuse. It does not decide custody, support, or living arrangements.
+
+  <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-civil-no-contact-order">**Learn how to file for a Civil No Contact Order**</a>
+
+  A **Stalking No Contact Order** is intended to protect survivors of stalking. It does not decide custody, support, or living arrangements.
+
+  <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-stalking-no-contact-order">**Learn how to file for a Stalking No Contact Order**</a>
+buttons:
+  - Restart: restart
+--- 
+id: op or snco
+event: op_or_snco
+question: |
+  ${capitalize(protect_who)} may choose between an Order of Protection and a Stalking  No Contact Order.
+subquestion: |
+  An **Order of Protection** can give custody of a child, support payments from the abuser, and can order that only protected persons and not their abuser can live in a shared residence. It can also order that the abuser turn over all guns and their FOID card.
+
+  <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-order-protection">**Learn how to file for an Order of Protection**</a>
+
+  A **Stalking No Contact Order** is intended to protect survivors of stalking. It does not decide custody, support, or living arrangements. The Stalking No Contact Order may prohibit the stalker from:
+  
+  * Following or monitoring you,
+  * Threatening you,
+  * Talking or writing to you,
+  * Interfering with or damaging your property,
+  * Coming near you in public or on private property, and
+  * Showing up at your work, home, school, or daycare facility.
+  
   <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-stalking-no-contact-order">**Learn how to file for a Stalking No Contact Order**</a>
 buttons:
   - Restart: restart
