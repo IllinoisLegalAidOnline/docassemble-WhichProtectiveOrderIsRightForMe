@@ -40,7 +40,7 @@ code: |
         protect_who = 'you'
     else:
       an_adult
-    if abuser_illinois == False:
+    if perpetrator_illinois == False:
       if acts_illinois == False:
         no_jurisdiction
       else:
@@ -137,7 +137,7 @@ id: welcome
 question: |
   Which protective order is right for me?
 subquestion: |
-  This interview is for people who are survivors of abuse, stalking, harassment, or sexual violence, and want to make their abuser stay away.
+  This interview is for people who are survivors of abuse, stalking, harassment, or sexual violence, and want to make the perpetrator stay away.
 
   It will help you learn which legal orders can protect survivors of different sorts of abuse, violence, or harassment.
 
@@ -235,11 +235,11 @@ subquestion: |
 
   This program will help you determine which order covers your situation.
 ---
-id: abuser illinois
+id: perpetrator illinois
 question: |
-  Does the abuser live in Illinois?
+  Does the perpetrator live in Illinois?
 fields:
-  - no label: abuser_illinois
+  - no label: perpetrator_illinois
     datatype: yesnoradio
 ---
 id: acts illinois
@@ -283,51 +283,51 @@ continue button field: has_jurisdiction
 question: |
   Based on your answers, Illinois will have jurisdiction over your protective order.
 ---
-id: live with abuser
+id: live with perpetrator
 question: |
-  Does the abuser currently live with ${ protect_who }?
+  Does the perpetrator currently live with ${ protect_who }?
 fields:
   - no label: live_with
     datatype: yesnoradio
 ---
-id: lived with abuser
+id: lived with perpetrator
 question: |
-  Did the abuser live with ${ protect_who } in the past?
+  Did the perpetrator live with ${ protect_who } in the past?
 fields:
   - no label: lived_with
     datatype: yesnoradio
 ---
 id: romantic partner
 question: |
-  Is the abuser a current or former romantic partner?
+  Is the perpetrator a current or former romantic partner?
 fields:
   - no label: romantic_partner
     datatype: yesnoradio
 ---
 id: relative
 question: |
-  Is the abuser a relative?
+  Is the perpetrator a relative?
 fields:
   - no label: a_relative
     datatype: yesnoradio
 ---
 id: related to child
 question: |
-  Is the abuser related to a child ${ protect_who } ${ is_or_are} legally responsible for?
+  Is the perpetrator related to a child ${ protect_who } ${ is_or_are} legally responsible for?
 fields:
   - no label: related_child
     datatype: yesnoradio
 ---
 id: live with child
 question: |
-  Does the abuser live with a child ${ protect_who } ${ is_or_are} legally responsible for?
+  Does the perpetrator live with a child ${ protect_who } ${ is_or_are} legally responsible for?
 fields:
   - no label: live_with_child
     datatype: yesnoradio
 ---
 id: caregiver
 question: |
-  Is the abuser a caregiver or personal assistant for ${ protect_who }?
+  Is the perpetrator a caregiver or personal assistant for ${ protect_who }?
 subquestion: |
   ${ collapse_template(caregiver_help) }   
 fields:
@@ -336,14 +336,14 @@ fields:
 ---
 id: disability
 question: |
-  Is the abuser elderly or a person with a disability?
+  Is the perpetrator elderly or a person with a disability?
 fields:
   - no label: disability
     datatype: yesnoradio
 ---
 id: care for
 question: |
-  ${capitalize(is_or_are)} ${ protect_who } a current or former caregiver for the abuser?
+  ${capitalize(is_or_are)} ${ protect_who } a current or former caregiver for the perpetrator?
 subquestion: |
   ${ collapse_template(caregiver_help) }   
 fields:
@@ -365,7 +365,7 @@ fields:
 ---
 id: took responsibility
 question: |
-  Did the abuser take responsibility for ${ protect_who }?
+  Did the perpetrator take responsibility for ${ protect_who }?
 fields:
   - no label: took_responsibility
     datatype: yesnoradio
@@ -379,7 +379,7 @@ code: |
 ---
 id: sexual abuse
 question: |
-  ${ was_or_were } ${ protect_who } ever the victim of rape, sexual assault, or sexual abuse by the abuser?
+  ${ was_or_were } ${ protect_who } ever the survivor of rape, sexual assault, or sexual abuse by the perpetrator?
 fields:
   - no label: sexual_abuse
     datatype: yesnoradio
@@ -389,11 +389,11 @@ event: oop_or_cnco
 question: |
   ${capitalize(protect_who)} may choose between an Order of Protection and a Civil No Contact Order.
 subquestion: |
-  An **Order of Protection** can give custody of a child, support payments from the abuser, and can order that only protected persons and not their abuser can live in a shared residence. It can also order that the abuser turn over all guns and their FOID card.
+  An **Order of Protection** can give custody of a child, support payments from the perpetrator, and can order that only protected persons and not the perpetrator can live in a shared residence. It can also order that the perpetrator turn over all guns and their FOID card.
 
   <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-order-protection">**Learn how to file for an Order of Protection**</a>
 
-  A **Civil No Contact Order** does not decide custody, support, or living arrangements. However, you can use this order to make the abuser transfer to a different school if the abuser is a classmate in grade school, middle school, or high school.
+  A **Civil No Contact Order** does not decide custody, support, or living arrangements. However, you can use this order to make the perpetrator transfer to a different school if the perpetrator is a classmate in grade school, middle school, or high school.
   
   <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-civil-no-contact-order">**Learn how to file for a Civil No Contact Order**</a>
 buttons:
@@ -404,7 +404,7 @@ event: only_oop
 question: |
   ${capitalize(protect_who)} may qualify for an Order of Protection
 subquestion: |
-  An **Order of Protection** can give custody of a child, support payments from the abuser, and can order that only protected persons and not their abuser can live in a shared residence. It can also order that the abuser turn over all guns and their FOID card.
+  An **Order of Protection** can give custody of a child, support payments from the perpetrator, and can order that only protected persons and not the perpetrator can live in a shared residence. It can also order that the perpetrator turn over all guns and their FOID card.
 
   <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-order-protection">**Learn how to file for an Order of Protection**</a>
 buttons:
@@ -415,7 +415,7 @@ event: only_cnco
 question: |
   ${capitalize(protect_who)} may qualify for a Civil No Contact Order
 subquestion: |
-  A **Civil No Contact Order** does not decide custody, support, or living arrangements. However, you can use this order to make the abuser transfer to a different school if the abuser is a classmate in grade school, middle school, or high school. 
+  A **Civil No Contact Order** does not decide custody, support, or living arrangements. However, you can use this order to make the perpetrator transfer to a different school if the perpetrator is a classmate in grade school, middle school, or high school. 
 
   <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-civil-no-contact-order">**Learn how to file for a Civil No Contact Order**</a>
 buttons:
@@ -423,7 +423,7 @@ buttons:
 ---
 id: any stalking
 question: |
-  Has the abuser stalked ${ protect_who }?
+  Has the perpetrator stalked ${ protect_who }?
 fields:
   - no label: any_stalking
     datatype: yesnoradio
@@ -441,7 +441,7 @@ buttons:
 ---
 id: stalking times
 question: |
-  How many times has the abuser done an act of stalking?
+  How many times has the perpetrator done an act of stalking?
 field: stalking_times
 choices:
   - Once
@@ -454,7 +454,7 @@ question: |
 subquestion: |
   Based on the answers you have given, ${ protect_who } ${ do_or_does } not qualify for any of the special protective orders available in Illinois right now.
 
-  You may qualify for a Stalking No Contact Order if the abuser bothers ${ protect_who } again.
+  You may qualify for a Stalking No Contact Order if the perpetrator bothers ${ protect_who } again.
   
   If you made a mistake, you can use the Back button or Restart the interview.
 buttons:
@@ -462,7 +462,7 @@ buttons:
 ---
 id: fear
 question: |
-  Did the abuser's actions make ${ protect_who } fear for ${ your_or_their} safety or cause emotional distress?
+  Did the perpetrator's actions make ${ protect_who } fear for ${ your_or_their} safety or cause emotional distress?
 fields:
   - no label: had_fear
     datatype: yesnoradio
@@ -474,7 +474,7 @@ question: |
 subquestion: |
   Based on the answers you have given, ${ protect_who } ${ do_or_does } not qualify for any of the protective orders available in Illinois.
 
-  To count as "stalking" the abuser's conduct must be worse than annoying. The behavior must cause emotional distress or make you fear for your safety. However, if the abuser's behavior continues or gets worse, ${ protect_who } may qualify for a Stalking No Contact Order.
+  To count as "stalking" the perpetrator's conduct must be worse than annoying. The behavior must cause emotional distress or make you fear for your safety. However, if the perpetrator's behavior continues or gets worse, ${ protect_who } may qualify for a Stalking No Contact Order.
 buttons:
   - Restart: restart
 ---
@@ -505,7 +505,7 @@ question: |
 subquestion: |
   Based on the answers you have given, an Order of Protection may be the best option to protect ${protect_who}. However, ${protect_who} may also qualify for a Civil No Contact Order or a Stalking No Contact Order.
 
-  An **Order of Protection** can give custody of a child, support payments from the abuser, and can order that only protected persons and not their abuser can live in a shared residence. It can also order that the abuser turn over all guns and their FOID card.
+  An **Order of Protection** can give custody of a child, support payments from the perpetrator, and can order that only protected persons and not the perpetrator can live in a shared residence. It can also order that the perpetrator turn over all guns and their FOID card.
 
   <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-order-protection">**Learn how to file for an Order of Protection**</a>
 
@@ -524,7 +524,7 @@ event: op_or_snco
 question: |
   ${capitalize(protect_who)} may choose between an Order of Protection and a Stalking  No Contact Order.
 subquestion: |
-  An **Order of Protection** can give custody of a child, support payments from the abuser, and can order that only protected persons and not their abuser can live in a shared residence. It can also order that the abuser turn over all guns and their FOID card.
+  An **Order of Protection** can give custody of a child, support payments from the perpetrator, and can order that only protected persons and not the perpetrator can live in a shared residence. It can also order that the perpetrator turn over all guns and their FOID card.
 
   <a href="https://www.illinoislegalaid.org/legal-information/starting-case-get-order-protection">**Learn how to file for an Order of Protection**</a>
 
