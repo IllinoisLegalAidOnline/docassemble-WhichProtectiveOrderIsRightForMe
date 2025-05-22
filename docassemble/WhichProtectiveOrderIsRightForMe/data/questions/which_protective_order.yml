@@ -286,6 +286,8 @@ question: |
 id: live with perpetrator
 question: |
   Does the perpetrator currently live with ${ protect_who }?
+subquestion: |
+  The **perpetrator** is the person who did the abusive, harmful, or threatening behavior.
 fields:
   - no label: live_with
     datatype: yesnoradio
